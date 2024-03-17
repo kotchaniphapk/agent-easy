@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 import {
   Card,
   Input,
@@ -9,7 +10,6 @@ import {
   Button,
   Avatar,
   AvatarGroup,
-  Chip,
   CircularProgress,
 } from "@nextui-org/react";
 import {
@@ -20,70 +20,48 @@ import {
   LuShowerHead,
   LuRuler,
 } from "react-icons/lu";
+import { useDispatch, useSelector } from "react-redux";
 
 import agentImage from "../assets/AgentNoey.jpg";
+import { getProperties } from "../reducers/property";
+
 import { API_URL } from "../settings";
 
 function ContentSection() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [properties, setProperties] = useState([]);
-  const [newProperty, setNewProperty] = useState({});
+
+
+  const dispatch = useDispatch();
+  const properties = useSelector((state) => state.property.data);
 
   useEffect(() => {
-    _getProperties();
+    dispatch(getProperties());
   }, []);
 
-  const _getProperties = async () => {
-    const url = `${API_URL}/properties`;
-    const method = "GET";
-    const headers = new Headers({
-      accept: "application/json",
-    });
+  // const _createProperty = async () => {
+  //   const url = `${API_URL}/properties`;
+  //   const method = "POST";
+  //   const headers = new Headers({
+  //     accept: "application/json",
+  //     "content-type": "application/json",
+  //   });
+  //   const body = JSON.stringify({
+  //     data: {
+  //       Name: "Strapi test",
+  //       Address: "Strapi address",
+  //     },
+  //   });
 
-    setLoading(true);
-    setError(false);
+  //   setLoading(true);
+  //   const response = await fetch(url, { method, headers, body });
+  //   setLoading(false);
 
-    const response = await fetch(url, { method, headers });
-    setLoading(false);
-
-    if (!response.ok) {
-      setError(true);
-      return;
-    }
-
-    const propertyData = await response.json();
-    console.log("properties", propertyData);
-    if (propertyData?.data) {
-      setProperties(propertyData.data);
-    }
-  };
-
-  const _createProperty = async () => {
-    const url = `${API_URL}/properties`;
-    const method = "POST";
-    const headers = new Headers({
-      accept: "application/json",
-      "content-type": "application/json",
-    });
-    const body = JSON.stringify({
-      data: {
-        Name: "Strapi test",
-        Address: "Strapi address",
-      },
-    });
-
-    setLoading(true);
-    const response = await fetch(url, { method, headers, body });
-    setLoading(false);
-
-    if (!response.ok) {
-      setError(true);
-      return;
-    }
-
-    _getProperties();
-  };
+  //   if (!response.ok) {
+  //     setError(true);
+  //     return;
+  //   }
+  // };
 
   return (
     <div className="flex flex-col flex-1 overflow-x-hidden">
@@ -92,15 +70,10 @@ function ContentSection() {
           <div className="md:items-center md:flex">
             <p className="text-base font-bold text-gray-900">Hey Mariana -</p>
             <p className="mt-1 text-base font-medium text-gray-500 md:mt-0 md:ml-2">
-              here's what's happening with your store today
+              {"here's what's happening with your store today"}
             </p>
           </div>
         </div>
-
-        <Input
-          onChange={(e) => setNewProperty({ ...newProperty, Name: e.target.value })}
-        />
-
         <div className="px-4 mx-auto mt-8 sm:px-6 md:px-8">
           <div className="flex max-w-lg flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
             <Input
@@ -113,13 +86,13 @@ function ContentSection() {
               }
             />
           </div>
-          <Button
+          {/* <Button
             color="primary"
             onClick={_createProperty}
             isLoading={loading}
           >
             Create property
-          </Button>
+          </Button> */}
           <div className="space-y-5 sm:space-y-6">
             <div className="grid gap-6 mt-12 grid-cols-4">
               {loading && (
@@ -135,7 +108,7 @@ function ContentSection() {
                 >
                   <div className="absolute z-10 top-5 left-2 flex flex-row gap-20">
                     <div className="inline-flex items-center justify-center text-xs font-bold text-gray-900 bg-secondary rounded-full w-24 h-8">
-                      FOR RENT
+                    {property.attributes.Post_types}
                     </div>
                     <div className="">
                       <AvatarGroup size="sm" isBordered max={1} total={3}>
@@ -211,14 +184,16 @@ function ContentSection() {
 
                         <div className="m-1 flex flex-row gap-6">
                           <div className="flex items-center text-base font-medium text-gray-600 hover:text-gray-900">
-                            <LuBedDouble className="mr-1  text-primary" />2
+                            <LuBedDouble className="mr-1  text-primary" />
+                            {property.attributes.Bedroom}
                           </div>
                           <div className="flex items-center text-base font-medium text-gray-600 hover:text-gray-900">
-                            <LuShowerHead className="mr-1 text-primary" />2
+                            <LuShowerHead className="mr-1 text-primary" />
+                            {property.attributes.Bathroom}
                           </div>
                           <div className="flex items-center text-base font-medium text-gray-600 hover:text-gray-900">
                             <LuRuler className="mr-1 text-primary" />
-                            30 Sqm
+                            {property.attributes.Size}
                           </div>
                         </div>
                       </div>

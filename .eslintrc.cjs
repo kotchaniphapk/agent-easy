@@ -16,8 +16,10 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'quotes': ['error', 'double'],
+    'react-hooks/exhaustive-deps': "off"
   },
   globals: {
-    React: 1,
+    React: true,
   }
 }
