@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@nextui-org/react";
 import {
   LuBuilding,
@@ -9,10 +9,10 @@ import {
   LuSettings,
   LuAppWindow,
 } from "react-icons/lu";
-import PropertyFormSection from "./PropertyFormSection";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
-  const [addProperty, setAddProperty] = useState(false);
+  // const [addProperty, setAddProperty] = useState(false);
 
   return (
     <div className="flex flex-col bg-slate-50">
@@ -21,15 +21,17 @@ const SideBar = () => {
             <div className="hidden md:flex md:w-64 md:flex-col h-screen fixed ">
               <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-t-gray-200">
                 <div className="px-4">
+                  <Link to="/addProperty">
                   <Button
                     color="primary"
                     variant="solid"
                     startContent={<LuPlus />}
                     className="w-full"
-                    onClick={() => setAddProperty(true)}
+                    // onClick={() => setAddProperty(true)}
                   >
                     Add Property
                   </Button>
+                  </Link>
                 </div>
                 <div className="px-4 mt-6">
                   <hr className="border-gray-200" />
@@ -55,13 +57,13 @@ const SideBar = () => {
                         Dashboard
                       </a>
 
-                      <a
-                        href="#"
+                      <Link
+                        to="/properties"
                         className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-primary group"
                       >
                         <LuBuilding size={20} className="flex-shrink-0 mr-4" />
                         Property
-                      </a>
+                      </Link>
 
                       <a
                         href="#"
@@ -97,8 +99,7 @@ const SideBar = () => {
             </div>
           </div>
         </div>
-
-        <PropertyFormSection isOpen={addProperty} onClose={() => setAddProperty(false)} />
+        {/* <PropertyFormSection isOpen={addProperty} onClose={() => setAddProperty(false)} /> */}
       </div>
   );
 };

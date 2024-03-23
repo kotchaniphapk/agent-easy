@@ -1,4 +1,3 @@
-import React from "react";
 export const Bedrooms = [
   {label: "Studio room", value: "0", description: ""},
   {label: "1 room", value: "1", description: ""},
