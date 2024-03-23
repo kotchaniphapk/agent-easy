@@ -19,7 +19,7 @@ import agLogo from "../assets/Agent-logo.svg";
 
 function NavbarMain() {
   return (
-    <Navbar isBordered maxWidth="full" height={"3rem"}>
+    <Navbar position="sticky" isBordered maxWidth="full" height={"3rem"}>
       <NavbarBrand>
         <img src={agLogo} width={150} />
       </NavbarBrand>

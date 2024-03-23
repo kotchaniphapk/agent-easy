@@ -12,7 +12,7 @@ function Main() {
       <NavbarMain />
       <div className="flex flex-1">
         <SideBar />
-        <div className="">
+        <div className="w-full">
           <Routes>
             <Route path="/properties" element={<ContentSection />} />
             <Route path="/dashboard" element={<div>hey</div>} />

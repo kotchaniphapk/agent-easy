@@ -15,9 +15,9 @@ const SideBar = () => {
   // const [addProperty, setAddProperty] = useState(false);
 
   return (
-    <div className="flex flex-col bg-slate-50">
-        <div className="xl:flex xl:w-64 xl:flex-col">
-          <div className="flex flex-1 bg-gray-50 ">
+    <div className=" bg-slate-50">
+        <div className="xl:w-64 xl:flex">
+          <div className=" bg-gray-50 ">
             <div className="hidden md:flex md:w-64 md:flex-col h-screen fixed ">
               <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-t-gray-200">
                 <div className="px-4">
