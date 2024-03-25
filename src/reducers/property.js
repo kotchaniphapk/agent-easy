@@ -66,6 +66,8 @@ export const removeProperty = createAsyncThunk(
     if (!response.ok) {
       throw new Error(response.statusText);
     }
+    const propertyData = await response.json();
+    return propertyData;
   }
 );
 
@@ -110,9 +112,14 @@ const propetySlice = createSlice({
      builder.addCase(removeProperty.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(removeProperty.fulfilled, (state) => {
+    builder.addCase(removeProperty.fulfilled, (state, action) => {
       state.loading = false;
-
+      state.data = state.data.filter((property) => {
+        if (property.id === parseInt(action.meta.arg.property_id, 10)) {
+          return false;
+        }
+        return true;
+      })
     });
     builder.addCase(removeProperty.rejected, (state, action) => {
       state.loading = false;
