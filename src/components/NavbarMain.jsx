@@ -1,11 +1,9 @@
-import React from "react";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   Link,
-  Button,
   Avatar,
   Dropdown,
   DropdownTrigger,
@@ -13,7 +11,7 @@ import {
   DropdownMenu,
 } from "@nextui-org/react";
 
-import { LuUser, LuHelpCircle } from "react-icons/lu";
+import { LuHelpCircle } from "react-icons/lu";
 
 import agLogo from "../assets/Agent-logo.svg";
 
@@ -25,7 +23,7 @@ function NavbarMain() {
       </NavbarBrand>
 
       <NavbarContent as="div" justify="end">
-        <NavbarItem className="mr-4">
+        <NavbarItem className="mr-4 space-x-4">
           <Link color="foreground" href="#">
             <LuHelpCircle size={20} className="mr-2" />
             Help

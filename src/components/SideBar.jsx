@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Button } from "@nextui-org/react";
 import {
   LuBuilding,
@@ -16,9 +16,9 @@ const SideBar = () => {
 
   return (
     <div className=" bg-slate-50">
-        <div className="xl:w-64 xl:flex">
+        <div className="xl:w-56 xl:flex">
           <div className=" bg-gray-50 ">
-            <div className="hidden md:flex md:w-64 md:flex-col h-screen fixed ">
+            <div className="hidden md:flex md:w-56 md:flex-col h-screen fixed ">
               <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-t-gray-200">
                 <div className="px-4">
                   <Link to="/addProperty">
@@ -40,8 +40,16 @@ const SideBar = () => {
                 <div className="flex flex-col flex-1 px-3 mt-6">
                   <div className="space-y-4">
                     <nav className="flex-1 space-y-2">
+                    <a
+                        href="/community"
+                        title=""
+                        className="flex items-center px-4 py-2.5 text-sm font-medium text-gray-900 transition-all duration-200  hover:text-white rounded-lg hover:bg-primary group"
+                      >
+                        <LuHome size={20} className="flex-shrink-0 mr-4" />
+                        Community
+                      </a>
                       <a
-                        href="#"
+                        href="/profile"
                         title=""
                         className="flex items-center px-4 py-2.5 text-sm font-medium text-gray-900 transition-all duration-200  hover:text-white rounded-lg hover:bg-primary group"
                       >
@@ -49,7 +57,7 @@ const SideBar = () => {
                         Profile
                       </a>
                       <a
-                        href="#"
+                        href="/dashboard"
                         title=""
                         className="flex items-center px-4 py-2.5 text-sm font-medium text-gray-900 transition-all duration-200  hover:text-white rounded-lg hover:bg-primary group"
                       >
@@ -66,15 +74,15 @@ const SideBar = () => {
                       </Link>
 
                       <a
-                        href="#"
+                        href="agent-teams"
                         className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-primary group"
                       >
                         <LuUser size={20} className="flex-shrink-0 mr-4" />
-                        Agents
+                        Agent Teams
                       </a>
 
                       <a
-                        href="#"
+                        href="Customers"
                         className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-primary group"
                       >
                         <LuUsers size={20} className="flex-shrink-0 mr-4" />
@@ -99,7 +107,6 @@ const SideBar = () => {
             </div>
           </div>
         </div>
-        {/* <PropertyFormSection isOpen={addProperty} onClose={() => setAddProperty(false)} /> */}
       </div>
   );
 };

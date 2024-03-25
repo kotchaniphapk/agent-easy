@@ -19,6 +19,21 @@ const router = createBrowserRouter([
       },
       {
         path: "addProperty",
+      },
+      {
+        path: "profile",
+      },
+      {
+        path: "agent-teams",
+      },
+      {
+        path: "agent-teams",
+      },
+      {
+        path: "customers",
+      },
+      {
+        path: "community",
       }
     ],
   },

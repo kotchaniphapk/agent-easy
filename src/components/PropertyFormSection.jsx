@@ -1,20 +1,15 @@
 import { useState } from "react";
-import { LuBuilding, LuImagePlus } from "react-icons/lu";
-import {
-  Button,
-  Input,
-  CircularProgress,
-} from "@nextui-org/react";
-import PropTypes from "prop-types";
+import { LuBuilding } from "react-icons/lu";
+import { Button, Input, CircularProgress } from "@nextui-org/react";
 
 import { createProperties } from "../reducers/property";
 import { useDispatch } from "react-redux";
 import AddPropertyImage from "./AddPropertyImage";
-import StepAddProperty from "./StepAddProperty";
+// import StepAddProperty from "./StepAddProperty";
 
 const types = ["For rent", "For sell", "Sell contract", "Leasehold"];
 
-function PropertyFormSection({onClose}) {
+function PropertyFormSection() {
   const [postType, setPostType] = useState(types[0]);
   const [name, setName] = useState();
   const [address, setAddress] = useState();
@@ -41,8 +36,8 @@ function PropertyFormSection({onClose}) {
         yourStatus,
       })
     ).then((data) => {
+        setLoading(false)
       if (!data.error) {
-        onClose();
         setError(true);
         return;
       }
@@ -56,7 +51,7 @@ function PropertyFormSection({onClose}) {
   };
 
   const goBackDetail = () => {
-    setAddPropertyScreen("PropertyDetails")
+    setAddPropertyScreen("PropertyDetails");
   };
 
   return (
@@ -81,7 +76,7 @@ function PropertyFormSection({onClose}) {
                 </div>
               </div>
               <div>
-                <div>
+                <div className="mt-2">
                   <p>Your status</p>
                   <div className="flex flex-row gap-4 mt-2">
                     <Button
@@ -102,7 +97,7 @@ function PropertyFormSection({onClose}) {
                     </Button>
                   </div>
                 </div>
-                <div>
+                <div className="mt-2">
                   <p>Post types</p>
                   <div className="flex flex-row gap-4 mt-2">
                     {types.map((type) => (
@@ -122,6 +117,7 @@ function PropertyFormSection({onClose}) {
                   <div className="w-full">
                     <p>Project name</p>
                     <Input
+                      size="sm"
                       type="text"
                       placeholder="Type your Project name"
                       className="mt-2"
@@ -129,17 +125,9 @@ function PropertyFormSection({onClose}) {
                     />
                   </div>
                   <div className=" w-full">
-                    <p>Address</p>
-                    <Input
-                      type="text"
-                      placeholder="zone"
-                      className="mt-2"
-                      onChange={(e) => setAddress(e.target.value)}
-                    />
-                  </div>
-                  <div className=" w-full">
                     <p>Size</p>
                     <Input
+                      size="sm"
                       type="text"
                       placeholder="Size of your room/Sqm"
                       className="mt-2"
@@ -147,11 +135,22 @@ function PropertyFormSection({onClose}) {
                     />
                   </div>
                 </div>
+                <div className=" w-full">
+                    <p>Address</p>
+                    <Input
+                      size="sm"
+                      type="text"
+                      placeholder="zone"
+                      className="mt-2"
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </div>
                 <div className="mt-2 flex flex-row  gap-4">
                   <div className="w-full">
                     <p>Bedroom</p>
                     <div className="mt-2">
                       <Input
+                        size="sm"
                         type="number"
                         placeholder="Enter your bedroom"
                         className="mt-2"
@@ -159,11 +158,11 @@ function PropertyFormSection({onClose}) {
                       />
                     </div>
                   </div>
-
                   <div className="w-full">
                     <p>Bathroom</p>
                     <div className="mt-2">
                       <Input
+                        size="sm"
                         type="number"
                         placeholder="Enter your bedroom"
                         className="mt-2"
@@ -172,18 +171,9 @@ function PropertyFormSection({onClose}) {
                     </div>
                   </div>
                 </div>
+                
               </div>
-              <div className="mt-5">
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button
-                  color="primary"
-                  onClick={onCreateProperties}
-                  isLoading={loading}
-                >
-                  Save
-                </Button>
+              <div className="mt-5 flex justify-end space-x-2">
                 <Button color="primary" onClick={goNextDetail}>
                   Next
                 </Button>
@@ -194,8 +184,9 @@ function PropertyFormSection({onClose}) {
       )}
       {addPropertyScreen === "nextDetailScreen" && (
         <>
-          <AddPropertyImage 
-           onBack={goBackDetail}
+          <AddPropertyImage onBack={goBackDetail} 
+          onCreate={onCreateProperties}
+          isLoading={loading}
           />
         </>
       )}
@@ -204,8 +195,6 @@ function PropertyFormSection({onClose}) {
 }
 
 PropertyFormSection.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default PropertyFormSection;
