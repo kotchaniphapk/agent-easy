@@ -2,6 +2,7 @@ import { LuImagePlus } from "react-icons/lu";
 import { IoCloseCircle } from "react-icons/io5";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { nanoid } from "nanoid";
 
 import { Button } from "@nextui-org/react";
 import PropTypes from "prop-types";
@@ -16,7 +17,7 @@ function AddPropertyImage ({ onBack, onCreate, isLoading }) {
     setFiles(previousFiles => [
       ...previousFiles,
       ...acceptedFiles.map(file =>
-        Object.assign(file,{ preview: URL.createObjectURL(file)})
+        Object.assign(file,{ preview: URL.createObjectURL(file), id: nanoid(12) })
       )
       ])
     }
@@ -24,8 +25,8 @@ function AddPropertyImage ({ onBack, onCreate, isLoading }) {
   },[])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({ onDrop })
 
-  const removeFile = name => {
-    setFiles(files => files.filter(file => file.name !== name))
+  const removeFile = (id) => {
+    setFiles(files => files.filter(file => file.id !== id))
   };
 
   return (
@@ -65,7 +66,7 @@ function AddPropertyImage ({ onBack, onCreate, isLoading }) {
             variant="light"
             color="danger"
             className="flex items-center  justify-center absolute -top-6 -right-3"
-            onClick={() => removeFile(file.name)}
+            onClick={() => removeFile(file.id)}
             >
              <IoCloseCircle size="20" className=""/> 
             </Button>
