@@ -91,8 +91,8 @@ function ContentSection() {
                 }
               />
             </div>
-            <div className="space-y-5 sm:space-y-6">
-              <div className="grid gap-6 mt-12 grid-cols-4">
+            <div className="space-y-5 sm:space-y-5">
+              <div className="grid gap-6 mt-12 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {loading && <CircularProgress />}
                 {error && (
                   <p className="text-danger">
@@ -104,11 +104,11 @@ function ContentSection() {
                     key={property.id}
                     className="relative overflow-hidden bg-white rounded-lg shadow-lg group pb-4"
                   >
-                    <div className="absolute z-10 top-5 left-2 flex flex-row gap-20">
+                    <div className="absolute z-10 top-5 left-2 flex flex-row gap-10 lg:gap-20">
                       <div className="inline-flex items-center justify-center text-xs font-bold text-gray-900 bg-secondary rounded-full w-24 h-8">
                         {property.attributes.Post_types}
                       </div>
-                      <div className="">
+                      <div className="hiddent">
                         <AvatarGroup size="sm" isBordered max={1} total={3}>
                           <Avatar src={agentImage} />
                           <Avatar src={agentImage} />
@@ -122,7 +122,7 @@ function ContentSection() {
                         alt=""
                       />
                     </div>
-                    <div className="px-2">
+                    <div className="">
                       <div className="flex flex-col flex-1 mt-2 ml-4">
                         <div className="flex-1">
                           <div className="mt-2 sm:mt-0 flex justify-between items-center">
@@ -181,7 +181,7 @@ function ContentSection() {
                             </div>
                           </div>
 
-                          <div className="m-1 flex flex-row gap-6">
+                          <div className="m-1 flex flex-row gap-3">
                             <div className="flex items-center text-base font-medium text-gray-600 hover:text-gray-900">
                               <LuBedDouble className="mr-1  text-primary" />
                               {property.attributes.Bedroom}

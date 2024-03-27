@@ -37,7 +37,7 @@ function PropertyFormSection() {
       })
     ).then((data) => {
         setLoading(false)
-      if (!data.error) {
+      if (data.error) {
         setError(true);
         return;
       }
