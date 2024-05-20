@@ -5,6 +5,7 @@ import { Button, Input, CircularProgress } from "@nextui-org/react";
 import { createProperties } from "../reducers/property";
 import { useDispatch } from "react-redux";
 import AddPropertyImage from "./AddPropertyImage";
+import { useNavigate } from "react-router-dom";
 // import StepAddProperty from "./StepAddProperty";
 
 const types = ["For rent", "For sell", "Sell contract", "Leasehold"];
@@ -17,11 +18,15 @@ function PropertyFormSection() {
   const [yourStatus, setYourStatus] = useState("owner");
   const [bedRoom, setBedRoom] = useState();
   const [bathRoom, setBathRoom] = useState();
+  const [price, setPrice] = useState();
+  const [floor, setFloor] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [addPropertyScreen, setAddPropertyScreen] = useState("PropertyDetails");
 
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onCreateProperties = () => {
     setLoading(true);
@@ -34,6 +39,8 @@ function PropertyFormSection() {
         bedRoom,
         bathRoom,
         yourStatus,
+        price,
+        floor,
       })
     ).then((data) => {
         setLoading(false)
@@ -41,6 +48,8 @@ function PropertyFormSection() {
         setError(true);
         return;
       }
+
+      navigate("/properties");
 
       console.log(data);
     });
@@ -135,7 +144,7 @@ function PropertyFormSection() {
                     />
                   </div>
                 </div>
-                <div className=" w-full">
+                <div className="mt-2 w-full">
                     <p>Address</p>
                     <Input
                       size="sm"
@@ -167,6 +176,32 @@ function PropertyFormSection() {
                         placeholder="Enter your bedroom"
                         className="mt-2"
                         onChange={(e) => setBathRoom(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-2 flex flex-row  gap-4">
+                  <div className="w-full">
+                    <p>Floor</p>
+                    <div className="mt-2">
+                      <Input
+                        size="sm"
+                        type="number"
+                        placeholder="Enter your bedroom"
+                        className="mt-2"
+                        onChange={(e) => setFloor(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full">
+                    <p>Price</p>
+                    <div className="mt-2">
+                      <Input
+                        size="sm"
+                        type="number"
+                        placeholder="Enter your bedroom"
+                        className="mt-2"
+                        onChange={(e) => setPrice(e.target.value)}
                       />
                     </div>
                   </div>

@@ -27,13 +27,13 @@ const router = createBrowserRouter([
         path: "agent-teams",
       },
       {
-        path: "agent-teams",
-      },
-      {
         path: "customers",
       },
       {
         path: "community",
+      },
+      {
+        path: "property/:property_id",
       }
     ],
   },

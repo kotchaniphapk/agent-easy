@@ -23,7 +23,7 @@ export const getProperties = createAsyncThunk(
 
 export const createProperties = createAsyncThunk(
   "property/createProperties",
-  async ({ name, address, size, postType, bedRoom, bathRoom, yourStatus }) => {
+  async ({ name, address, size, postType, bedRoom, bathRoom, yourStatus, price, floor }) => {
     const url = `${API_URL}/properties`;
     const method = "POST";
     const headers = new Headers({
@@ -39,6 +39,8 @@ export const createProperties = createAsyncThunk(
         Bedroom: bedRoom,
         Bathroom: bathRoom,
         Your_status: yourStatus,
+        Price: price,
+        Floor: floor,
       },
     });
 
@@ -63,6 +65,30 @@ export const removeProperty = createAsyncThunk(
     });
 
     const response = await fetch(url, { method, headers });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    const propertyData = await response.json();
+    return propertyData; 
+  }
+);
+
+export const showOnPublic = createAsyncThunk (
+  "property/showOnPublic",
+  async ({ property_id, show }) => {
+    const url = `${API_URL}/properties/${property_id}`;
+    const method = "PUT";
+    const headers = new Headers({
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    });
+    const body = JSON.stringify({
+      data: {
+        Public: show,
+      }
+    })
+
+    const response = await fetch(url,{ method, headers, body });
     if (!response.ok) {
       throw new Error(response.statusText);
     }
@@ -125,7 +151,29 @@ const propetySlice = createSlice({
       state.loading = false;
       state.error = action.error.message;
     });
-
+    //Show or hide property on publicPage,"show" pass parameter have true or false, How to reuse the cord     
+    builder.addCase(showOnPublic.pending, (state) => {
+      state.loading =true;
+    });
+    builder.addCase(showOnPublic.fulfilled,(state, action) => {
+      state.loading = false;
+      state.data = state.data.map((property) => {
+        if (property.id === parseInt(action.meta.arg.property_id, 10)) {
+          return {
+            ...property,
+            attributes: {
+              ...property.attributes,
+              Public: action.meta.arg.show,
+            },
+          };
+        }
+        return property;
+      })
+    });
+    builder.addCase(showOnPublic.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
   },
 });
 
